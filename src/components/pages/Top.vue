@@ -3,11 +3,16 @@ import { reactive } from '@vue/reactivity'
 import { useRouter } from "vue-router"
 import CommonHeader from '../header/CommonHeader.vue'
 import CommonFooter from '../header/CommonFooter.vue'
-import { onMounted } from 'vue';
+import { ref } from 'vue';
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 
-onMounted(async () => {
-  await import("../../assets/js/top.js")
-});
+
+const images = ref([
+  "/assets/images/main2.jpg",
+  "/assets/images/main3.jpg",
+]);
+
 </script>
 
 <template>
@@ -15,25 +20,40 @@ onMounted(async () => {
 
 <!-- contents -->
 <div class="main-wrap">
-  <ul>
-    <li>
-      <img data-lazy="/assets/images/main2.jpg" alt="">
-      <div class="slick-content">
-        <p class="text1">Shaping the Future Together</p>
-        <p class="text2">集客に強い！<br>高品質なホームページ制作！</p>
-        <p class="text3">ホームページ制作から運用まで<br>様々なつながりを活かして<br>あらゆるヒト・コト・モノをつなぎ<br>相乗効果で新たな未来を共に創造します。</p>
-      </div>
-    </li>
-    <li>
-      <img data-lazy="/assets/images/main3.jpg" alt="">
-      <div class="slick-content">
-        <p class="text1">Shaping the Future Together</p>
-        <p class="text2">個人事業主・中小企業の<br>未来を豊かにする。</p>
-        <p class="text3">ホームページ制作から運用まで<br>様々なつながりを活かして<br>あらゆるヒト・コト・モノをつなぎ<br>相乗効果で新たな未来を共に創造します。</p>
-      </div>
-    </li>
-  </ul>
-  <div class="scroll-view-wrap">
+
+  <VueperSlides
+    style="z-index: 0;"
+    fade
+    :visible-slides="1"
+    slide-multiple
+    autoplay
+    infinite
+    :slide-ratio="1 / 1.675"
+    :bullets="false"
+    :pause-on-hover="false"
+    duration="5000"
+    :arrows="false">
+    <VueperSlide
+      v-for="(image, i) in images"
+      :key="i"
+      :image="image"
+      >
+      <template #content>
+        <div v-if="i === 0" class="slick-content">
+          <p class="text1">Shaping the Future Together</p>
+          <p class="text2">集客に強い！<br>高品質なホームページ制作！</p>
+          <p class="text3">ホームページ制作から運用まで<br>様々なつながりを活かして<br>あらゆるヒト・コト・モノをつなぎ<br>相乗効果で新たな未来を共に創造します。</p>
+        </div>
+        <div v-if="i === 1" class="slick-content">
+          <p class="text1">Shaping the Future Together</p>
+          <p class="text2">個人事業主・中小企業の<br>未来を豊かにする。</p>
+          <p class="text3">ホームページ制作から運用まで<br>様々なつながりを活かして<br>あらゆるヒト・コト・モノをつなぎ<br>相乗効果で新たな未来を共に創造します。</p>
+        </div>
+      </template>
+    </VueperSlide>
+  </VueperSlides>
+
+  <div class="scroll-view-wrap" style="z-index: 1000; top: 0px; height: 100%;">
     <div class="scroll-view">
       <a href="#news">SCROLL TO VIEW</a>
     </div>
@@ -71,7 +91,15 @@ onMounted(async () => {
       </div>
     </div>
     <div class="about-right">
-      <figure class="fadeRightTrigger"><img src="/assets/images/about-image.jpg" alt=""></figure>
+
+      <AOS
+        type="fade-left"
+        :duration='600'>
+        <figure >
+          <img src="/assets/images/about-image.jpg" alt="" />
+        </figure>
+      </AOS>
+
     </div>
   </div>
 </div>
