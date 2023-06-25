@@ -5,6 +5,15 @@ import VueRouter from "./router/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/import.css";
 
+import "primevue/resources/themes/lara-light-indigo/theme.css";
+import "primevue/resources/primevue.min.css";
+import PrimeVue from 'primevue/config';
+
+import VueAOS from '@dcasia/vue-aos';
+import '@dcasia/vue-aos/dist/vue-aos.css';
+
+import VueSmoothScroll from 'vue3-smooth-scroll';
+
 // drawer
 import "./assets/jquery/drawer/drawer.css";
 
@@ -30,4 +39,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
-createApp(App).use(VueRouter).mount("#app");
+createApp(App)
+  .use(VueRouter)
+  .use(PrimeVue)
+  .use(VueAOS)
+  .use(VueSmoothScroll)
+  .mount("#app");
